@@ -9,6 +9,7 @@ import com.cloudmersive.client.model.FaceLocateWithLandmarksResponse;
 import com.cloudmersive.client.model.FaceWithLandmarks;
 
 
+
 import java.io.File;
 
 public class FaceRecognitionAPICall {
@@ -21,7 +22,7 @@ public class FaceRecognitionAPICall {
         Apikey.setApiKey("76d11169-037a-4450-ac29-9a9688a36133");
 
         FaceApi apiInstance = new FaceApi();
-        File imageFile = new File("C://Users/cbcha/Downloads/faceImage.jpg");
+        File imageFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
 
         try {
             response = apiInstance.faceLocateWithLandmarks(imageFile);
@@ -34,6 +35,7 @@ public class FaceRecognitionAPICall {
     public FaceWithLandmarks getCurrentFace(){
         return face;
     }
+
     public FaceLocateWithLandmarksResponse getResponse() {
         return response;
     }

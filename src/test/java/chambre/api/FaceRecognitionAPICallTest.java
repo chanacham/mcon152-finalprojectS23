@@ -11,7 +11,7 @@ class FaceRecognitionAPICallTest {
     void getCurrentFace() {
 
         //give
-        FaceRecognitionAPICall api = mock();
+        FaceRecognitionAPICall api = new FaceRecognitionAPICall();
 
         //when
         FaceWithLandmarks face = api.getCurrentFace();

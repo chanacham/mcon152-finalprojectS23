@@ -1,11 +1,11 @@
 package chambre.api;
 
-import json.Face;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("API TEST");
-        FaceApiFrame api = new FaceApiFrame();
-        System.out.println("API Success" + api);
+        FaceApiFrame frame = new FaceApiFrame();
+        frame.setVisible(true);
+        System.out.println("API Success" + frame);
     }
 }
