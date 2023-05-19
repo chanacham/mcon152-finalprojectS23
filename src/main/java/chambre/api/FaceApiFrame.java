@@ -3,7 +3,6 @@ package chambre.api;
 import com.cloudmersive.client.model.FaceWithLandmarks;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -11,22 +10,18 @@ import java.io.IOException;
 
 public class FaceApiFrame extends JFrame {
 
-    private FaceRecognitionAPICall api = new FaceRecognitionAPICall();
-     FaceWithLandmarks faceFromAPI;
-     private Image picture;
+    private final FaceRecognitionAPICall api = new FaceRecognitionAPICall();
+    private FaceRecognitionView view = new FaceRecognitionView();
+
+    private FaceWithLandmarks faceFromAPI;
+    private Image picture;
 
     public FaceApiFrame() {
         JPanel panel = new JPanel(new BorderLayout());
+        FaceRecognitionController controller = new FaceRecognitionController(api, view);
+        faceFromAPI = controller.getFaceFromController();
+        picture = controller.getImageFromController();
 
-        faceFromAPI =  api.getCurrentFace();
-        try{
-            File imageFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
-            picture = ImageIO.read(imageFile);
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-
-        FaceRecognitionView view = new FaceRecognitionView();
         view.setFaceImage(picture);
         view.setCurrentFace(faceFromAPI);
         panel.add(view, BorderLayout.CENTER);
