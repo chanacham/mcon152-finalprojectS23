@@ -2,11 +2,8 @@ package chambre.api;
 
 import com.cloudmersive.client.model.FaceWithLandmarks;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class FaceApiFrame extends JFrame {
 
@@ -19,17 +16,24 @@ public class FaceApiFrame extends JFrame {
     public FaceApiFrame() {
         JPanel panel = new JPanel(new BorderLayout());
         FaceRecognitionController controller = new FaceRecognitionController(api, view);
-        faceFromAPI = controller.getFaceFromController();
-        picture = controller.getImageFromController();
 
-        view.setFaceImage(picture);
-        view.setCurrentFace(faceFromAPI);
-        panel.add(view, BorderLayout.CENTER);
 
         JLabel textBox = new JLabel("Facial Feature Recognition");
         textBox.setPreferredSize(new Dimension(100, 100));
         textBox.setFont(new Font("Arial", Font.BOLD, 30));
         panel.add(textBox, BorderLayout.NORTH);
+
+        picture = controller.updateImage();
+        faceFromAPI = controller.updateFace();
+
+        panel.add(view, BorderLayout.CENTER);
+
+//       Panel to display the different landmarks
+//       JPanel selectLandmark = new JPanel();
+//        String [] facePoints = {"top", "bottom","left","right"};
+//        JComboBox landmarkList = new JComboBox(facePoints);
+//        selectLandmark.add(landmarkList,BorderLayout.NORTH);
+//        panel.add(selectLandmark, BorderLayout.SOUTH);
 
         setTitle("Face Recognition API");
         setSize(500, 700);

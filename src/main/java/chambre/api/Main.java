@@ -6,6 +6,6 @@ public class Main {
         System.out.println("API TEST");
         FaceApiFrame frame = new FaceApiFrame();
         frame.setVisible(true);
-        System.out.println("API Success" + frame);
+        System.out.println("API Success");
     }
 }

@@ -1,10 +1,7 @@
 package chambre.api;
 
 import com.cloudmersive.client.FaceApi;
-import com.cloudmersive.client.invoker.ApiClient;
 import com.cloudmersive.client.invoker.ApiException;
-import com.cloudmersive.client.invoker.Configuration;
-import com.cloudmersive.client.invoker.auth.ApiKeyAuth;
 import com.cloudmersive.client.model.FaceLocateWithLandmarksResponse;
 import com.cloudmersive.client.model.FaceWithLandmarks;
 
@@ -15,38 +12,39 @@ import java.io.IOException;
 
 public class FaceRecognitionController {
     private FaceRecognitionView view;
-    //API call is acting as a service to get the current face
-    private FaceRecognitionAPICall api;
+   // TODO: professor said this is never called, check to make sure calling API correctly. Move FaceApi to new class?
+    //  private FaceRecognitionAPICall api;
+    private final File imageFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
+    //use JFileChooser to select an image, and upload it to the service.
 
     public FaceRecognitionController(FaceRecognitionAPICall service,
                                      FaceRecognitionView view) {
-        this.api = service;
+        //this.api = service;
         this.view = view;
     }
 
-    public FaceWithLandmarks getFaceFromController() {
+    public FaceWithLandmarks updateFace() {
         FaceLocateWithLandmarksResponse response;
         FaceWithLandmarks face = null;
         FaceApi apiInstance = new FaceApi();
-        File imageFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
-
         try {
             response = apiInstance.faceLocateWithLandmarks(imageFile);
+            //NOTE: handle multiple faces??
             face = response.getFaces().get(0);
+            view.setCurrentFace(face);
         } catch (ApiException e) {
             System.err.println("Exception when calling FaceApi#faceLocateWithLandmarks");
             e.printStackTrace();
         }
         return face;
     }
-
-    public Image getImageFromController() {
+    public Image updateImage() {
         Image picture = null;
         try {
-            File imageFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
             picture = ImageIO.read(imageFile);
+            view.setFaceImage(picture);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return picture;
     }

@@ -16,7 +16,7 @@ class FaceRecognitionControllerTest {
         FaceRecognitionView view = new FaceRecognitionView();
         FaceRecognitionController controller = new FaceRecognitionController(api, view);
         //when
-        FaceWithLandmarks face = controller.getFaceFromController();
+        FaceWithLandmarks face = controller.updateFace();
         //then
         assertNotNull(face);
     }
@@ -29,7 +29,7 @@ class FaceRecognitionControllerTest {
         FaceRecognitionController controller = new FaceRecognitionController(api, view);
 
         //when
-        Image image = controller.getImageFromController();
+        Image image = controller.updateImage();
         //then
         assertNotNull(image);
     }
