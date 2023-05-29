@@ -4,6 +4,9 @@ import com.cloudmersive.client.model.FaceWithLandmarks;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 public class FaceApiFrame extends JFrame {
 
@@ -17,23 +20,32 @@ public class FaceApiFrame extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         FaceRecognitionController controller = new FaceRecognitionController(api, view);
 
-
+        JPanel topPanel = new JPanel();
         JLabel textBox = new JLabel("Facial Feature Recognition");
-        textBox.setPreferredSize(new Dimension(100, 100));
-        textBox.setFont(new Font("Arial", Font.BOLD, 30));
-        panel.add(textBox, BorderLayout.NORTH);
+        topPanel.add(textBox);
 
-        picture = controller.updateImage();
-        faceFromAPI = controller.updateFace();
+        JButton imageChooser = new JButton("Select Image");
+        imageChooser.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            File defaultFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
 
+            fileChooser.setSelectedFile(defaultFile);
+            int result = fileChooser.showOpenDialog(panel);
+            if(result == JFileChooser.APPROVE_OPTION){
+                File selectedFile = fileChooser.getSelectedFile();
+                System.out.println("Selected File: " + selectedFile);
+                controller.setImageFile(selectedFile);
+                picture = controller.updateImage();
+                faceFromAPI = controller.updateFace();
+            } else if (result == JFileChooser.CANCEL_OPTION) {
+                System.out.println("File selection canceled, setting image to default file");
+                controller.setImageFile(defaultFile);
+            }
+        });
+        topPanel.add(imageChooser);
+
+        panel.add(topPanel, BorderLayout.NORTH);
         panel.add(view, BorderLayout.CENTER);
-
-//       Panel to display the different landmarks
-//       JPanel selectLandmark = new JPanel();
-//        String [] facePoints = {"top", "bottom","left","right"};
-//        JComboBox landmarkList = new JComboBox(facePoints);
-//        selectLandmark.add(landmarkList,BorderLayout.NORTH);
-//        panel.add(selectLandmark, BorderLayout.SOUTH);
 
         setTitle("Face Recognition API");
         setSize(500, 700);

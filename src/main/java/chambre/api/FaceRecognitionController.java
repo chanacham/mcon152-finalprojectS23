@@ -14,22 +14,22 @@ public class FaceRecognitionController {
     private FaceRecognitionView view;
    // TODO: professor said this is never called, check to make sure calling API correctly. Move FaceApi to new class?
     //  private FaceRecognitionAPICall api;
-    private final File imageFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
-    //use JFileChooser to select an image, and upload it to the service.
+    private File imageFile;
 
     public FaceRecognitionController(FaceRecognitionAPICall service,
                                      FaceRecognitionView view) {
         //this.api = service;
         this.view = view;
     }
-
+    public void setImageFile(File input){
+        this.imageFile = input;
+    }
     public FaceWithLandmarks updateFace() {
         FaceLocateWithLandmarksResponse response;
         FaceWithLandmarks face = null;
         FaceApi apiInstance = new FaceApi();
         try {
             response = apiInstance.faceLocateWithLandmarks(imageFile);
-            //NOTE: handle multiple faces??
             face = response.getFaces().get(0);
             view.setCurrentFace(face);
         } catch (ApiException e) {
