@@ -14,10 +14,9 @@ class FaceRecognitionControllerTest {
     @Test
     void getFaceFromController() {
         //given
-        FaceRecognitionAPICall api = new FaceRecognitionAPICall();
-        FaceRecognitionView view = new FaceRecognitionView();
-        FaceRecognitionController controller = new FaceRecognitionController(api, view);
-        File defaultFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
+        FaceRecognitionView view = mock();
+        FaceRecognitionController controller = new FaceRecognitionController( view);
+        File defaultFile = new File("src/test/resources/faceImage.jpg");
         controller.setImageFile(defaultFile);
 
         //when
@@ -29,10 +28,9 @@ class FaceRecognitionControllerTest {
     @Test
     void getImageFromController() {
         //given
-        FaceRecognitionAPICall api = new FaceRecognitionAPICall();
-        FaceRecognitionView view = new FaceRecognitionView();
-        FaceRecognitionController controller = new FaceRecognitionController(api, view);
-        File defaultFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
+        FaceRecognitionView view = mock();
+        FaceRecognitionController controller = new FaceRecognitionController(view);
+        File defaultFile = new File("src/test/resources/faceImage.jpg");
         controller.setImageFile(defaultFile);
 
         //when

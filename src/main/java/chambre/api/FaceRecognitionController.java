@@ -1,7 +1,10 @@
 package chambre.api;
 
 import com.cloudmersive.client.FaceApi;
+import com.cloudmersive.client.invoker.ApiClient;
 import com.cloudmersive.client.invoker.ApiException;
+import com.cloudmersive.client.invoker.Configuration;
+import com.cloudmersive.client.invoker.auth.ApiKeyAuth;
 import com.cloudmersive.client.model.FaceLocateWithLandmarksResponse;
 import com.cloudmersive.client.model.FaceWithLandmarks;
 
@@ -12,18 +15,20 @@ import java.io.IOException;
 
 public class FaceRecognitionController {
     private FaceRecognitionView view;
-   // TODO: professor said this is never called, check to make sure calling API correctly. Move FaceApi to new class?
-    //  private FaceRecognitionAPICall api;
     private File imageFile;
 
-    public FaceRecognitionController(FaceRecognitionAPICall service,
-                                     FaceRecognitionView view) {
-        //this.api = service;
+    public FaceRecognitionController(FaceRecognitionView view) {
         this.view = view;
+
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        ApiKeyAuth Apikey = (ApiKeyAuth) defaultClient.getAuthentication("Apikey");
+        Apikey.setApiKey("76d11169-037a-4450-ac29-9a9688a36133");
     }
-    public void setImageFile(File input){
+
+    public void setImageFile(File input) {
         this.imageFile = input;
     }
+
     public FaceWithLandmarks updateFace() {
         FaceLocateWithLandmarksResponse response;
         FaceWithLandmarks face = null;
@@ -38,6 +43,7 @@ public class FaceRecognitionController {
         }
         return face;
     }
+
     public Image updateImage() {
         Image picture = null;
         try {

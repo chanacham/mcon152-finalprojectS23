@@ -10,7 +10,6 @@ import java.io.File;
 
 public class FaceApiFrame extends JFrame {
 
-    private final FaceRecognitionAPICall api = new FaceRecognitionAPICall();
     private FaceRecognitionView view = new FaceRecognitionView();
 
     private FaceWithLandmarks faceFromAPI;
@@ -18,7 +17,7 @@ public class FaceApiFrame extends JFrame {
 
     public FaceApiFrame() {
         JPanel panel = new JPanel(new BorderLayout());
-        FaceRecognitionController controller = new FaceRecognitionController(api, view);
+        FaceRecognitionController controller = new FaceRecognitionController( view);
 
         JPanel topPanel = new JPanel();
         JLabel textBox = new JLabel("Facial Feature Recognition");
@@ -27,11 +26,9 @@ public class FaceApiFrame extends JFrame {
         JButton imageChooser = new JButton("Select Image");
         imageChooser.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
-            File defaultFile = new File("C:/Users/cbcha/Downloads/faceImage2.jpg");
 
-            fileChooser.setSelectedFile(defaultFile);
             int result = fileChooser.showOpenDialog(panel);
-            if(result == JFileChooser.APPROVE_OPTION){
+            if (result == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 System.out.println("Selected File: " + selectedFile);
                 controller.setImageFile(selectedFile);
@@ -39,7 +36,6 @@ public class FaceApiFrame extends JFrame {
                 faceFromAPI = controller.updateFace();
             } else if (result == JFileChooser.CANCEL_OPTION) {
                 System.out.println("File selection canceled, setting image to default file");
-                controller.setImageFile(defaultFile);
             }
         });
         topPanel.add(imageChooser);

@@ -54,10 +54,10 @@ public class FaceRecognitionView extends JComponent {
 
     private void drawFeature (List<FacePoint> feature, Graphics g){
         for (int i = 0; i < feature.size() - 2; i++) {
-            //TODO: get null pointer exception if remove this line, but professor said to remove it
-            if (feature.get(i) != null){
+            //TODO: this is nuts. There should not be a list with an entire null entry.
+           if (feature.get(i) != null){
                 g.drawLine(feature.get(i).getX(), feature.get(i).getY(), feature.get(i + 1).getX(), feature.get(i + 1).getY());
-            }
+           }
         }
     }
     private void drawWidthAndHeight(Graphics g) {
